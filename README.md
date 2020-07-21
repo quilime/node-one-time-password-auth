@@ -1,4 +1,4 @@
-# Single-Use Login Code Signing Authentication Strategy using JSON Web Tokens and Client-side Cookies.
+# Single-Use Password Authentication Strategy using JSON Web Tokens and Client-side Cookies.
 
 
 ## Using
