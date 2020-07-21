@@ -17,5 +17,9 @@
     "passport-jwt": "^4.0.0",
     "sequelize": "^6.3.3",
     "uuid": "^8.2.0"
+  },
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/quilime/node-one-time-password-auth.git"
   }
 }
