@@ -35,7 +35,7 @@ Notion.so uses a similar login-flow that this code is unabashadly inspired by.
 1. User enters the password in /login
 1. Assuming the user didn't clear their cookies since requesting a password, the server extracts the password and ID from the JWT, and attempts to authenticates the user.
 1. DB deletes one-time password from USER row
-1. If authenticated, a new JWT is created with the user ID, and stored in the cookie.
+1. If authenticated, a new JWT is created with the user ID, and is replaced in the cookie.
 1. User is now authenticated. The JWT from the cookie is used to auth future requests.
 1. To log out, server clears the clients cookie. 
 
