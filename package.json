@@ -1,10 +1,9 @@
 {
-  "name": "node-express-jwt-test",
+  "name": "node-one-time-password-auth",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js",
-    "fix": "eslint --fix index.js"
+    "start": "nodemon index.js"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
@@ -18,9 +17,5 @@
     "passport-jwt": "^4.0.0",
     "sequelize": "^6.3.3",
     "uuid": "^8.2.0"
-  },
-  "devDependencies": {
-    "eslint": "^7.5.0",
-    "eslint-plugin-react": "^7.20.3"
   }
 }
