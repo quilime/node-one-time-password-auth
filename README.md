@@ -47,6 +47,12 @@ Notion.so uses a similar login-flow that this code is unabashadly inspired by.
 - Config for cookie Max-Age, Domain, etc settings
 
 
+## To Use
+
+1. `npm i`
+1. If you have nodemon installed, `npm run start`, otherwise `node server.js`
+
+
 ## Refs
 
 - https://jwt.io/
