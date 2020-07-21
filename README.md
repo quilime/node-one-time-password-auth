@@ -1,4 +1,4 @@
-# One-Time (Single Use) Password Authentication Strategy using JSON Web Tokens and client-side Cookies.
+# One-Time (Single Use) Password Authentication Strategy using JSON Web Tokens and Client-side Cookies.
 
 
 ## Using
@@ -7,6 +7,7 @@
 - Express
 - JSON Web Tokens (JWTs)
 - Sequelize (Mysql or Postgres)
+- Passport
 - Nodemailer (Using a SMTP Server)
 
 

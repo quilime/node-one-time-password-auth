@@ -72,14 +72,14 @@ const User = sequelize.define("User", {
 });
 
 
-// check the database connection
+// sync DB
 sequelize.authenticate()
   .then(() => console.log("DB Connected!"))
   .then(User.sync({ alter : false }))
   .catch(err => console.error("Unable to connect DB:", err));
 
 
-// JWT Auth Strategy
+// JWT auth strategy for passport
 let jwtOpts = {};
 jwtOpts.jwtFromRequest = (req) => {
   let token = null;
@@ -194,7 +194,7 @@ app.post("/login", (req, res) => {
       })
       .then((user) => {
       // create JWT token with just user's uuid
-      
+
         let payload = {
           uuid: user.uuid
         };
