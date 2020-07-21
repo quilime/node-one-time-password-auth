@@ -9,6 +9,7 @@ const passport = require("passport");
 const passportJwt = require("passport-jwt");
 const { createTransport } = require("nodemailer");
 const { v4: uuidv4 } = require("uuid");
+const { Sequelize, DataTypes } = require("sequelize");
 
 
 // set up mailer
@@ -44,10 +45,6 @@ const sendPasswordViaEmail = (user) => {
 
 
 // set up database
-const { Sequelize, DataTypes } = require("sequelize");
-
-
-// initialze an instance of Sequelize
 const sequelize = new Sequelize({
   database: process.env.DB_NAME,
   username: process.env.DB_USERNAME,
@@ -62,10 +59,6 @@ const User = sequelize.define("User", {
   email: {
     type: DataTypes.STRING,
     allowNull: false,
-    unique: true,
-  },
-  username: {
-    type: DataTypes.STRING,
     unique: true,
   },
   password: {
@@ -101,7 +94,6 @@ passport.use(new passportJwt.Strategy(jwtOpts, (jwt_payload, next) => {
 
   // user has password in their payload, redirect them to /login
   if (jwt_payload.password) {
-    // next(null, ;
     next(null, null);
   }
   else {
@@ -128,7 +120,8 @@ const checkAuth = passport.authenticate("jwt", {
 const app = express();
 app.use(passport.initialize());
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true })); //parse application/x-www-form-urlencoded
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: true })); 
 app.use(cookieParser());
 app.get("/", function(req, res) {
   res.json({  message: "Status 200" });
@@ -201,6 +194,7 @@ app.post("/login", (req, res) => {
       })
       .then((user) => {
       // create JWT token with just user's uuid
+      
         let payload = {
           uuid: user.uuid
         };
