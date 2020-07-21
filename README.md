@@ -43,7 +43,7 @@ Notion.so uses a similar login-flow that this code is unabashadly inspired by.
 ### Suggestions and TODO
 
 - Expose user-configurable setting for session expiry time 
-- Config for cookie Max-Age, Domain, etc settings, [1](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie)
+- Config for cookie Max-Age, Domain, etc settings
 
 
 ## Refs
