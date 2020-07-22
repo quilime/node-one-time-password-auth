@@ -43,13 +43,12 @@ Notion.so uses a similar login-flow that this code is unabashadly inspired by.
 
 ### Suggestions and TODO
 
-- Expose user-configurable setting for session expiry time 
-- Config for cookie Max-Age, Domain, etc settings
+- Config cookie Max-Age, Domain, and etc based on your preference.
 
 
 ## To Use
 
-1. `npm i`
+1. `npm install`
 1. If you have nodemon installed, `npm run start`, otherwise `node server.js`
 
 
