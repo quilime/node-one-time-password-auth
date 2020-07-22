@@ -13,15 +13,15 @@
 
 ## What is this?
 
-This boilerplate code is a web app authentication strategy of using a one-time password that is emailed to a user, upon using the password it is discarded and all further auth is done with a JSON Web Token (JSW) stored in a cookie on the client. 
-
-For testing I used a SMTP mailserver run on Dreamhost. See the nodemailer docs on [SMTP Transport](https://nodemailer.com/smtp/) and [Other Transports](https://nodemailer.com/transports/) for more info on mailservers.
+This boilerplate code is a web app auth strategy that uses a one-time password that is emailed to a user. Upon login in, the password is discarded and all further auth is done with a JSON Web Token (JSW) stored in a cookie on the client. 
 
 I chose to use a generated UUID for the user rather than using the incremental DB row.
 
 Cookies must be enabled by the users browser for this auth scheme to work. The only thing stored in the cookie is a JWT.
 
 JWT's can be used forever to login, or until it is expired. There is [no simple way to log out](https://medium.com/devgorilla/how-to-log-out-when-using-jwt-a8c7823e8a6) when using a JWT for auth, as they are stateless and stored on the client. One method of "logging out" the user is to clear cookies. You may want to set cookie Max-Age, Domain, and [other settings](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie) to your preference.
+
+See the nodemailer docs on [SMTP Transport](https://nodemailer.com/smtp/) and [Other Transports](https://nodemailer.com/transports/) for more info on mailservers.
 
 Notion.so uses a similar login-flow that this code is unabashadly inspired by.
 
