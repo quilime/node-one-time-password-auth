@@ -13,7 +13,7 @@
 
 ## What is this?
 
-This boilerplate code is a web app auth strategy that generates a one-time-use password that is emailed to a user. Upon login, the password is discarded and all further auth is done with a JSON Web Token (JSW) stored in a cookie on the client. 
+This boilerplate code is a web app auth strategy that generates a one-time-use password that is emailed to a user. Upon login, the password is discarded and all further auth is done with a JSON Web Token (JWT) stored in a cookie on the client. 
 
 I chose to use a generated UUID for the user rather than using the incremental DB row.
 
