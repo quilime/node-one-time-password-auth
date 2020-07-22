@@ -49,6 +49,7 @@ Notion.so uses a similar login-flow that this code is unabashadly inspired by.
 ## To Use
 
 1. `npm install`
+1. copy `.env.sample` to `.env` and add your settings
 1. If you have nodemon installed, `npm run start`, otherwise `node server.js`
 
 
