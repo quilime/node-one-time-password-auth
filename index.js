@@ -92,7 +92,7 @@ passport.use(new passportJwt.Strategy(jwtOpts, (jwt_payload, next) => {
 
   console.log("check JWT payload", jwt_payload);
 
-  // user has password in their payload, redirect them to /login
+  // if user has a password in the tokens payload, redirect them to /login
   if (jwt_payload.password) {
     next(null, null);
   }
@@ -143,7 +143,7 @@ app.post("/register", (req, res) => {
 
     User.findOne({ where: { email: email }})
       .then((user) => {
-        // create a user if doesn't exist
+        // create a new user if doesn't exist
         if (user) {
           return user.update({ password: password });
         }
@@ -160,7 +160,7 @@ app.post("/register", (req, res) => {
         };
         let token = jwt.sign(payload, jwtOpts.secretOrKey);
 
-        // put token in cookie
+        // store token in cookie
         res.cookie("token", token, { httpOnly: true });
         return user;
       })
@@ -177,10 +177,14 @@ app.post("/register", (req, res) => {
 
 // login
 app.post("/login", (req, res) => {
-  const { email, password } = req.body;
-  if (email && password) {
 
-    User.findOne({where: { email: email }})
+  // decode token from cookie
+  const token = req.cookies["token"];
+  var decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+  const { password } = req.body;
+
+  if (password && decodedToken.uuid) {
+    User.findOne({where: { uuid: decodedToken.uuid }})
       .then((user) => {
         if (!user) {
           throw "User not found";
@@ -193,20 +197,23 @@ app.post("/login", (req, res) => {
         }
       })
       .then((user) => {
-      // create JWT token with just user's uuid
+      // create new token with just user uuid
 
         let payload = {
           uuid: user.uuid
         };
-        let token = jwt.sign(payload, jwtOpts.secretOrKey);
+        let newToken = jwt.sign(payload, jwtOpts.secretOrKey);
 
         // replace token in client cookie
-        res.cookie("token", token, { httpOnly: true });
-        res.json({ email: user.email, message: "Successful login!" });
+        res.cookie("token", newToken, { httpOnly: true });
+        res.json({ email: user.email, message: "Login successful!" });
       })
       .catch(err => {
         res.status(401).json({ error: err });
       });
+  }
+  else {
+    res.status(401).json({ error: "Go to /register to generate a new password." });
   }
 });
 
@@ -219,14 +226,14 @@ app.get("/login", (req, res) => {
 
 // logout
 app.post("/logout", (req, res) => {
-  res.clearCookie("token"); // clear session cookie
+  res.clearCookie("token"); // delete cookie
   res.json({"message" : "Logged out"});
 });
 
 
 // protected route
 app.get("/protected", checkAuth, (req, res) => {
-  res.json({ message: `<${req.user.email}> is signed in. You're seeing protected content.` });
+  res.json({ email: req.user.email, message: "This is a protected route." });
 });
 
 

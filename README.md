@@ -43,7 +43,8 @@ Notion.so uses a similar login-flow that this code is unabashadly inspired by.
 
 ### Suggestions and TODO
 
-- Config cookie Max-Age, Domain, and etc based on your preference.
+- Config cookie Max-Age, Domain, and etc based on preference.
+
 
 
 ## To Use
