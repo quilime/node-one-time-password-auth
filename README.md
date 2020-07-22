@@ -41,12 +41,12 @@ Notion.so uses a similar login-flow that this code is unabashadly inspired by.
 
 ## Endpoints in this demo
 
-- `/` GET: public root
-- `/register` POST: Post form w/email field
-- `/login` POST: Post form w/password field
-- `/login` GET: The default redirect if user is authenticated
-- `/logout` POST: Clear cookies to "log out"
-- `/protected` GET: A protected route that only resolves if user is authenticated
+- GET `/` public root
+- POST `/register` Post form w/email field
+- POST `/login` Post form w/password field
+- GET `/login` The default redirect if user is authenticated
+- POST `/logout` Clear cookies to "log out"
+- GET `/protected` A demo of protected route that resolves if user is authenticated
 
 
 ### Suggestions and TODO
