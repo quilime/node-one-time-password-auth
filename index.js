@@ -94,7 +94,7 @@ passport.use(new passportJwt.Strategy(jwtOpts, (jwt_payload, next) => {
 
   // if user has a password in the tokens payload, redirect them to /login
   if (jwt_payload.password) {
-    next(null, null);
+    next(null, false);
   }
   else {
     User.findOne({ where: { uuid: jwt_payload.uuid }})
@@ -103,7 +103,7 @@ passport.use(new passportJwt.Strategy(jwtOpts, (jwt_payload, next) => {
       })
       .catch((err) => {
         console.log(err);
-        next(null, null);
+        next(null, false);
       });
   }
 }));
