@@ -26,22 +26,32 @@ Notion.so uses a similar login-flow that this code is unabashadly inspired by.
 
 ## Summary of login flow
 
-1. User visits web app and submits their email via login form on /register
-1. DB creates a new record for the UNIQUE email in a USER Table. If user has already registered, db selects on the UNIQUE email.
-1. Server generates a one-time use password and inserts in the PASSWORD column on the USER record
-1. Server sets the client-cookie with a JWT using the user ID and one-time password as payload
-1. Server sends the user an email with the one-time password
-1. User enters the password in /login
-1. Assuming the user didn't clear their cookies since requesting a password, the server extracts the password and ID from the JWT, and attempts to authenticates the user.
+1. User visits web app and submits their email via login form at `/register`
+1. DB inserts new row using the UNIQUE email in a USER Table. Otherwise, select the user if the email exists.
+1. Server generates a password and updates the PASSWORD column of the user row
+1. Server adds a JWT to the clients cookie using the user ID and the password as payload
+1. Server sends the user an email with the password
+1. User enters the password at `/login`
+1. Assuming the user didn't clear their cookies since requesting a password, the server uses the password and ID from the JWT to authenticates the user against the password they submitted
 1. DB deletes one-time password from USER row
 1. If authenticated, a new JWT is created with the user ID, and is replaced in the cookie.
 1. User is now authenticated. The JWT from the cookie is used to auth future requests.
 1. To log out, server clears the clients cookie. 
 
 
+## Endpoints in this demo
+
+- `/` GET: public root
+- `/register` POST: Post form w/email field
+- `/login` POST: Post form w/password field
+- `/login` GET: The default redirect if user is authenticated
+- `/logout` POST: Clear cookies to "log out"
+- `/protected` GET: A protected route that only resolves if user is authenticated
+
+
 ### Suggestions and TODO
 
-- Config cookie Max-Age, Domain, and etc based on preference.
+- Config cookie Max-Age, Domain, and etc based on your needs
 
 
 
