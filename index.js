@@ -220,14 +220,14 @@ app.post("/login", (req, res) => {
 
 // login get
 app.get("/login", (req, res) => {
-  res.status(401).json({ message: "Unauthorized. Redirecting to /login" });
+  res.status(401).json({ message: "Unauthorized" });
 });
 
 
 // logout
 app.post("/logout", (req, res) => {
-  res.clearCookie("token"); // delete cookie
-  res.json({"message" : "Logged out"});
+  res.clearCookie("token");
+  res.json({ message: "Logged out"});
 });
 
 
