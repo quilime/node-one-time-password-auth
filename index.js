@@ -80,14 +80,15 @@ sequelize.authenticate()
 
 
 // JWT auth strategy for passport
-let jwtOpts = {};
-jwtOpts.jwtFromRequest = (req) => {
-  let token = null;
-  // get JWT from cookie
-  if (req && req.cookies) token = req.cookies["token"];
-  return token;
+const jwtOpts = {
+  jwtFromRequest: (req) => {
+    let token = null;
+    // get JWT from cookie
+    if (req && req.cookies) token = req.cookies["token"];
+    return token;  
+  },
+  secretOrKey: process.env.JWT_SECRET
 };
-jwtOpts.secretOrKey = process.env.JWT_SECRET;
 passport.use(new passportJwt.Strategy(jwtOpts, (jwt_payload, next) => {
 
   console.log("check JWT payload", jwt_payload);
