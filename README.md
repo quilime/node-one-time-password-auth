@@ -15,8 +15,6 @@
 
 This boilerplate code is a web app auth strategy that generates a one-time-use password that is emailed to a user. Upon login, the password is discarded and all further auth is done with a JSON Web Token (JWT) stored in a cookie on the client. 
 
-I chose to use a generated UUID for the user rather than using the incremental DB row.
-
 Cookies must be enabled by the users browser for this auth scheme to work. The only thing stored in the cookie is a JWT.
 
 JWT's can be used forever to login, or until it is expired. There is [no simple way to log out](https://medium.com/devgorilla/how-to-log-out-when-using-jwt-a8c7823e8a6) when using a JWT for auth, as they are stateless and stored on the client. One method of "logging out" the user is to clear cookies. You may want to set cookie Max-Age, Domain, and [other settings](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie) to your preference.
