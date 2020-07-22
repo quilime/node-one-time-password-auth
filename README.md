@@ -1,4 +1,4 @@
-# One-Time (Single Use) Password Authentication Strategy using JSON Web Tokens and Client-side Cookies.
+# One-Time (Single Use) Password Authentication Strategy using JSON Web Tokens (JWTs) and Cookies.
 
 
 ## Using
