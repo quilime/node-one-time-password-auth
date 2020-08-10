@@ -68,7 +68,7 @@ const User = sequelize.define("User", {
     type: DataTypes.UUID,
     allowNull: false,
     unique: true,
-  },
+  }
 });
 
 
@@ -85,7 +85,7 @@ const jwtOpts = {
     let token = null;
     // get JWT from cookie
     if (req && req.cookies) token = req.cookies["token"];
-    return token;  
+    return token;
   },
   secretOrKey: process.env.JWT_SECRET
 };
@@ -121,8 +121,7 @@ const checkAuth = passport.authenticate("jwt", {
 const app = express();
 app.use(passport.initialize());
 app.use(bodyParser.json());
-// parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: true })); 
+app.use(bodyParser.urlencoded({ extended: true }));  // parse application/x-www-form-urlencoded
 app.use(cookieParser());
 app.get("/", function(req, res) {
   res.json({  message: "Status 200" });
@@ -162,7 +161,7 @@ app.post("/register", (req, res) => {
         let token = jwt.sign(payload, jwtOpts.secretOrKey);
 
         // store token in cookie
-        res.cookie("token", token, { httpOnly: true });
+        res.cookie("token", token, { maxAge: Number(process.env.COOKIE_MAX_AGE), httpOnly: true });
         return user;
       })
       .then(user => sendPasswordViaEmail(user))
@@ -206,8 +205,9 @@ app.post("/login", (req, res) => {
         let newToken = jwt.sign(payload, jwtOpts.secretOrKey);
 
         // replace token in client cookie
-        res.cookie("token", newToken, { httpOnly: true });
-        res.json({ email: user.email, message: "Login successful!" });
+        // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie
+        res.cookie("token", newToken, { maxAge: Number(process.env.COOKIE_MAX_AGE), httpOnly: true });
+        res.json({ user: user, message: "Login successful!" });
       })
       .catch(err => {
         res.status(401).json({ error: err });
@@ -234,7 +234,7 @@ app.post("/logout", (req, res) => {
 
 // protected route
 app.get("/protected", checkAuth, (req, res) => {
-  res.json({ email: req.user.email, message: "This is a protected route." });
+  res.json({ message: "This is a protected route." });
 });
 
 
